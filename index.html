@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevToolsHub - Professional Developer Tools</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: #fff;
+            padding: 3rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1.25rem 1.25rem 1.25rem 3.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #fff;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            background: #fff;
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .tool-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #2563eb;
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            color: #2563eb;
+            margin-bottom: 1.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .tool-card h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+
+        .tool-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background: #f8fafc;
+            color: #64748b;
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #2563eb;
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav .nav-links {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .tool-card {
+                padding: 2rem;
+            }
+
+            .search-section {
+                padding: 2rem 0;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
+
+            .tools-section {
+                padding: 3rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .tool-card {
+                padding: 1.5rem;
+            }
+
+            .tool-icon {
+                font-size: 2rem;
+                width: 50px;
+                height: 50px;
+            }
+
+            .search-box {
+                padding: 1rem 1rem 1rem 3rem;
+            }
+
+            .search-icon {
+                left: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 50%;
+            border-top-color: #2563eb;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        /* No results styling */
+        .no-results {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #64748b;
+            grid-column: 1 / -1;
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+            color: #94a3b8;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        /* Card enter animation */
+        .tool-card.animate {
+            animation: cardEnter 0.5s ease forwards;
+        }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Focus styles for accessibility */
+        .tool-card:focus {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+        }
+
+        .search-box::placeholder {
+            color: #94a3b8;
+        }
+
+        /* Improved grid alignment */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: start;
+            justify-items: center;
+        }
+
+        /* Ensure cards take full width in their grid cell */
+        .tool-card {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        @media (min-width: 769px) {
+            .tools-grid {
+                justify-items: stretch;
+            }
+            
+            .tool-card {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-tools"></i>
+                DevToolsHub
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="mobile-nav" id="mobileNav">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Professional Developer Tools</h1>
+            <p>Access a comprehensive collection of development tools to boost your productivity and streamline your workflow</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <i class="fas fa-search search-icon" id="searchIcon"></i>
+                <input type="text" class="search-box" id="searchInput" placeholder="Search for development tools...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools-section" id="tools">
+        <div class="container">
+            <h2 class="section-title">Developer Tools</h2>
+            <p class="section-subtitle">Choose from our extensive collection of professional development tools designed to enhance your coding experience</p>
+            
+            <div class="tools-grid" id="toolsGrid">
+                <!-- JSON Tools -->
+                <div class="tool-card" data-keywords="json formatter beautify validate format" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-brackets-curly"></i>
+                    </div>
+                    <h3>JSON Formatter</h3>
+                    <p>Format, validate and beautify JSON data with syntax highlighting and error detection for better readability</p>
+                </div>
+
+                <div class="tool-card" data-keywords="json validator validate check syntax" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>JSON Validator</h3>
+                    <p>Validate JSON syntax and structure with detailed error reporting and line-by-line analysis</p>
+                </div>
+
+                <!-- HTML/XML Tools -->
+                <div class="tool-card" data-keywords="html xml converter transform markup" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>HTML to XML</h3>
+                    <p>Convert HTML markup to well-formed XML format with proper structure and validation</p>
+                </div>
+
+                <div class="tool-card" data-keywords="html formatter beautify clean indent" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML Formatter</h3>
+                    <p>Format and beautify HTML code with proper indentation and clean structure</p>
+                </div>
+
+                <div class="tool-card" data-keywords="xml formatter beautify validate structure" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>XML Formatter</h3>
+                    <p>Format, validate and beautify XML documents with proper indentation and error checking</p>
+                </div>
+
+                <!-- CSS Tools -->
+                <div class="tool-card" data-keywords="css minifier compress optimize reduce" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h3>CSS Minifier</h3>
+                    <p>Compress CSS code to reduce file size and improve website performance and loading times</p>
+                </div>
+
+                <div class="tool-card" data-keywords="css formatter beautify clean organize" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>CSS Formatter</h3>
+                    <p>Format and organize CSS code with proper structure, indentation and readable styling</p>
+                </div>
+
+                <!-- JavaScript Tools -->
+                <div class="tool-card" data-keywords="javascript js minifier compress optimize" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <h3>JS Minifier</h3>
+                    <p>Minify JavaScript code to reduce bundle size and improve application performance</p>
+                </div>
+
+                <div class="tool-card" data-keywords="javascript js formatter beautify clean" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>JS Formatter</h3>
+                    <p>Format and beautify JavaScript code with proper indentation and readable structure</p>
+                </div>
+
+                <!-- Encoding Tools -->
+                <div class="tool-card" data-keywords="base64 encoder decoder encode decode" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Base64 Encoder/Decoder</h3>
+                    <p>Encode and decode data using Base64 encoding for secure data transmission and storage</p>
+                </div>
+
+                <div class="tool-card" data-keywords="url encoder decoder encode decode uri" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>URL Encoder/Decoder</h3>
+                    <p>Encode and decode URLs for web applications with proper character escaping</p>
+                </div>
+
+                <div class="tool-card" data-keywords="html entities encode decode special characters" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>HTML Entity Encoder</h3>
+                    <p>Convert special characters to HTML entities for safe display in web browsers</p>
+                </div>
+
+                <!-- Hash Tools -->
+                <div class="tool-card" data-keywords="md5 hash generator encryption checksum" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>MD5 Hash Generator</h3>
+                    <p>Generate MD5 hash values for text and files to verify data integrity and authenticity</p>
+                </div>
+
+                <div class="tool-card" data-keywords="sha hash generator encryption security checksum" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>SHA Hash Generator</h3>
+                    <p>Generate SHA-1, SHA-256, SHA-512 hash values for enhanced security and verification</p>
+                </div>
+
+                <!-- Color Tools -->
+                <div class="tool-card" data-keywords="color picker palette hex rgb hsl" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Color Picker</h3>
+                    <p>Pick colors and convert between different color formats with real-time preview</p>
+                </div>
+
+                <div class="tool-card" data-keywords="color converter hex rgb hsl hsv" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-adjust"></i>
+                    </div>
+                    <h3>Color Converter</h3>
+                    <p>Convert colors between HEX, RGB, HSL, HSV and other formats with precision</p>
+                </div>
+
+                <!-- Text Tools -->
+                <div class="tool-card" data-keywords="text case converter upper lower title" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-text-width"></i>
+                    </div>
+                    <h3>Text Case Converter</h3>
+                    <p>Convert text to uppercase, lowercase, title case, or camelCase format</p>
+                </div>
+
+                <div class="tool-card" data-keywords="word counter character count statistics" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Word Counter</h3>
+                    <p>Count words, characters, paragraphs and lines in text with detailed statistics</p>
+                </div>
+
+                <!-- Image Tools -->
+                <div class="tool-card" data-keywords="image compressor optimize reduce size" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-compress"></i>
+                    </div>
+                    <h3>Image Compressor</h3>
+                    <p>Compress and optimize images without quality loss to improve website performance</p>
+                </div>
+
+                <div class="tool-card" data-keywords="image resizer resize dimensions scale" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3>Image Resizer</h3>
+                    <p>Resize images to specific dimensions and formats while maintaining quality</p>
+                </div>
+
+                <!-- QR Code Tools -->
+                <div class="tool-card" data-keywords="qr code generator create barcode" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>QR Code Generator</h3>
+                    <p>Generate QR codes for URLs, text, contact info and other data with customization</p>
+                </div>
+
+                <!-- Regular Expression -->
+                <div class="tool-card" data-keywords="regex regular expression tester pattern" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Regex Tester</h3>
+                    <p>Test and validate regular expressions with live matching and explanation</p>
+                </div>
+
+                <!-- Timestamp Tools -->
+                <div class="tool-card" data-keywords="timestamp converter unix time date" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Timestamp Converter</h3>
+                    <p>Convert between Unix timestamps and human-readable dates with timezone support</p>
+                </div>
+
+                <!-- Password Generator -->
+                <div class="tool-card" data-keywords="password generator secure random strong" tabindex="0">
+                    <div class="tool-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Password Generator</h3>
+                    <p>Generate secure passwords with custom complexity and character requirements</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 DevToolsHub. All rights reserved. Built with ❤️ for developers worldwide.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
+        const toolsGrid = document.getElementById('toolsGrid');
+        const toolCards = document.querySelectorAll('.tool-card');
+        const scrollTopBtn = document.getElementById('scrollTop');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        // Mobile menu functionality
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (mobileNav.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            }
+        });
+
+        // Search functionality with debounce
+        let searchTimeout;
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            // Remove existing no results message
+            const existingNoResults = document.querySelector('.no-results');
+            if (existingNoResults) {
+                existingNoResults.remove();
+            }
+
+            toolCards.forEach((card, index) => {
+                const keywords = card.getAttribute('data-keywords');
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+
+                const isVisible = searchTerm === '' || 
+                    keywords.includes(searchTerm) || 
+                    title.includes(searchTerm) || 
+                    description.includes(searchTerm);
+
+                if (isVisible) {
+                    card.style.display = 'flex';
+                    card.classList.add('animate');
+                    // Stagger animation
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 50);
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                }
+            });
+
+            // Show no results message
+            if (visibleCount === 0 && searchTerm !== '') {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = `
+                    <i class="fas fa-search"></i>
+                    <h3>No tools found</h3>
+                    <p>Try searching with different keywords or browse all available tools</p>
+                `;
+                toolsGrid.appendChild(noResults);
+            }
+
+            // Reset search icon
+            searchIcon.innerHTML = '<i class="fas fa-search"></i>';
+        }
+
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            
+            // Show loading indicator
+            searchIcon.innerHTML = '<div class="loading"></div>';
+            
+            // Debounce search
+            searchTimeout = setTimeout(performSearch, 300);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    mobileNav.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                    
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top button functionality
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Tool card click handler
+        toolCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const toolName = this.querySelector('h3').textContent;
+                console.log(`Navigating to ${toolName}`);
+                // Add your navigation logic here
+                // Example: window.location.href = `/tools/${toolName.toLowerCase().replace(/\s+/g, '-')}`;
+            });
+
+            // Keyboard navigation
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+
+        // Search keyboard shortcuts
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                this.value = '';
+                this.dispatchEvent(new Event('input'));
+                this.blur();
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all tool cards
+        toolCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Global keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Focus search with Ctrl/Cmd + K
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
+        // Initialize animations on page load
+        window.addEventListener('load', function() {
+            toolCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
